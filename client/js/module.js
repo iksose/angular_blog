@@ -1,5 +1,5 @@
 // Make sure to include the `ui.router` module as a dependency
-angular.module('uiRouterSample', ['ui.router', 'ngAnimate', 'ngResource', 'ui.bootstrap'])
+angular.module('uiRouterSample', ['ui.router', 'ngAnimate', 'ngResource', 'ui.bootstrap', 'chieffancypants.loadingBar'])
     .run(
       [        '$rootScope', '$state', '$stateParams',
       function ($rootScope,   $state,   $stateParams) {

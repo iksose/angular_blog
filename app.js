@@ -6,8 +6,8 @@ var express = require('express')
     , passport = require('passport')
     , basic_routes = require('./routes/basic')
     , user_routes = require('./routes/user')
-    , movie = movie = require('./config/movies')
-    , flash = require('connect-flash');
+    , movie = movie = require('./config/movies');
+    // , flash = require('connect-flash');
 
 app.set('views', __dirname + '/client/views');
 app.engine('html', require('ejs').renderFile);
