@@ -60,29 +60,3 @@ angular.module('uiRouterSample')
 
 });
 
-angular.module('uiRouterSample')
-    // A RESTful factory for retreiving contacts from 'contacts.json'
-
-.factory('loginFactory', function($http){
-    console.log("Hello from login Factory")
-    var currentUser;
-    return {
-        postLogin: function(loginInfo) {
-            console.log("POST DUDE", loginInfo)
-            $http({
-                method: 'POST',
-                url: '/dmz/login',
-                // data: params,
-                params: loginInfo,
-                headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
-            })
-            .success(function(data, status){
-                console.log("SUCCESS!!!", data, status)
-                currentUser = data.user
-            })
-            .error(function(data, status){
-                console.log("Failure...", data, status)
-            })
-        }
-    }
-    })
