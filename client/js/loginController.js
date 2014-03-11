@@ -1,8 +1,8 @@
 angular.module('uiRouterSample')
-.controller("loginController" ,function ($scope, $state, $http, loginFactory) {
+.controller("loginController" ,function ($scope, $rootScope, $state, $http, loginFactory) {
     console.log("Hello from login controller")
     $scope.user;
-    $scope.loggedIn = false;
+    $rootScope.loggedIn = false;
     //Sets the scope if the user refreshes
     $http.get('/api/user/').success(function(data) {
         $scope.user = data;
@@ -10,7 +10,8 @@ angular.module('uiRouterSample')
         window.donuts = $scope.user
         window.holes = $scope.loggedIn;
         if(data !== ""){
-            $scope.loggedIn = true;
+            $rootScope.loggedIn = true;
+            
             console.log("Logged in!!!!", $scope.loggedIn)
         }
     });
@@ -23,7 +24,7 @@ angular.module('uiRouterSample')
             console.log("Callback....", data)
             $scope.user = data;
             if(data !== ""){
-                $scope.loggedIn = true
+                $rootScope.loggedIn = true
                 console.log("Logged in!!!", $scope.loggedIn)
             }
         }
@@ -40,7 +41,7 @@ angular.module('uiRouterSample')
         console.log("So you want to log out...?")
         var handleSuccess = function(data){
             console.log("Success on logout")
-             $scope.loggedIn = false;
+             $rootScope.loggedIn = false;
         }
         loginFactory.submitLogout(handleSuccess)
     }
