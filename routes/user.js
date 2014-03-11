@@ -52,5 +52,6 @@ exports.postlogin = function(req, res, next) {
 exports.logout = function(req, res) {
   console.log("logging out....")
   req.logout();
-  res.redirect('/');
+  // res.redirect('/');
+  res.send(200, "Logout Complete")
 };

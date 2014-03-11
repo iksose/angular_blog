@@ -44,6 +44,8 @@ app.all('/secure/admin', pass.ensureAdmin);
 // Basic pages
 app.get('/', basic_routes.index);
 
+app.get('/api/user', basic_routes.user);
+
 // Login pages
 app.get('/dmz/login', user_routes.getlogin);
 app.post('/dmz/login', user_routes.postlogin);

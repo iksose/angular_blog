@@ -13,3 +13,8 @@ exports.index = function(req, res) {
   	res.send(html)
   });
 };
+
+
+exports.user = function (req, res) {
+  res.json(req.user);
+};
