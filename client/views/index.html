@@ -68,6 +68,10 @@
             <li ui-sref-active="active"><a ui-sref="database">Database</a></li>
             <li ui-sref-active="active"><a ui-sref="blog">Blog</a></li>
             <li ui-sref-active="active"><a ui-sref="bloglist">List</a></li>
+            <!-- <span ng-show="loggedIn"> -->
+              <li ng-show="loggedIn" ui-sref-active="active">
+              <a ui-sref="newPost">New Post <i class="fa fa-rss-square"></i> </a></li>
+            <!-- </span> -->
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-controller="loginController">
               <li class="dropdown" id="loginDropdown">
@@ -76,6 +80,7 @@
                   <span ng-show="loggedIn">{{user.username}}</span>
                 </a>
                 <ul class="dropdown-menu" style="padding-left:5%">
+                <span ng-hide="loggedIn">
                 <form class="form-horizontal" role="form" ng-click="$event.stopPropagation()">
                   <div class="form-group">
                     <div class="col-sm-11">
@@ -89,10 +94,12 @@
                       ng-enter="login()" ng-model="credentials.password">
                     </div>
                   </div>
+                  <button button type="button" class="btn btn-success" ng-click="login()">Login</button>
                   </form>
                   <span ng-hide="loggedIn">{{failedLogin()}}</span>
-                  <span ng-show="loggedIn">
-                    <a href="" ng-click="logoutUser()">Logout</a>
+                  </span>
+                  <span ng-show="loggedIn">           
+                    <button style="margin-top: 10px;" button type="button" class="btn btn-success" ng-click="logoutUser()">Logout</button>
                   </span>
                   </ul>
 

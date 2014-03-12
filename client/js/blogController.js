@@ -70,6 +70,15 @@ angular.module('uiRouterSample')
 
 })
 
+.controller('blogController_newPost', function ($scope, $state, $rootScope, blogFactory, errors) {
+    var loggedIn = $rootScope.loggedIn;
+    console.log("Time for a new post! Are you authorize!?", loggedIn)
+    if(!loggedIn){
+        errors.addErr("danger", "You're not authorized to do that")
+        $state.go("home")
+    }
+})
+
 .factory('blogFactory', function($http, errors){
     console.log("Hello from blog Factory")
     var movieList;

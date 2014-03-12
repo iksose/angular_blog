@@ -299,6 +299,11 @@ angular.module('uiRouterSample')
             templateUrl: 'views/bloglist.post.html',
             controller: 'blogController_individual'
           })
+          .state('newPost',{
+            url: '/newPost',
+            templateUrl: 'views/newpost.html',
+            controller: 'blogController_newPost'
+          })
 
 
 
