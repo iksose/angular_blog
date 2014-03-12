@@ -54,7 +54,7 @@ exports.addMovie = function(req, res) {
 
 
 // var thor = new Movie({
-//   title: 'Thor'
+//   title: 'Thor 2: Super Hammer'
 // , rating: 'PG-13'
 // , releaseYear: '2011'  // Notice the use of a String rather than a Number - Mongoose will automatically convert this for us.
 // , hasCreditCookie: true

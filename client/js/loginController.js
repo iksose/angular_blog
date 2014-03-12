@@ -47,6 +47,10 @@ angular.module('uiRouterSample')
         }
         loginFactory.submitLogout(handleSuccess)
     }
+
+    $scope.failedLogin = function(){
+        return loginFactory.returnLoginFailure();
+    }
     
 
 });
@@ -72,6 +76,7 @@ angular.module('uiRouterSample')
                 console.log("SUCCESS!!!", data, status)
                 currentUser = data.user
                 callback(data.user)
+                errorMsg = ""
             })
             .error(function(data, status){
                 console.log("Failure...", data, status)
@@ -87,6 +92,9 @@ angular.module('uiRouterSample')
         },
         getCurrUser: function(){
             return currentUser;
+        },
+        returnLoginFailure: function(){
+            return errorMsg;
         }
     }
     })

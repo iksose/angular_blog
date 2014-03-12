@@ -2,8 +2,8 @@
 
 <div class="row">
 	<div class="col-xs-6 col-sm-6">
-		<h5>Mongoose</h5>
-		<div ng-repeat="friends in movieList">
+		<h5><strong>Mongoose</strong></h5>
+		<div ng-repeat="friends in movieList track by $index">
 		{{friends.title}}
 		</div>
 		<div class="input-group col-sm-5">

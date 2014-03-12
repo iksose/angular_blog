@@ -81,7 +81,10 @@
                     </div>
                   </div>
                   </form>
-                  <a href="" ng-click="logoutUser()">Logout</a>
+                  <span ng-hide="loggedIn">{{failedLogin()}}</span>
+                  <span ng-show="loggedIn">
+                    <a href="" ng-click="logoutUser()">Logout</a>
+                  </span>
                   </ul>
 
               </li>
