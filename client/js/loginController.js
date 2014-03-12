@@ -27,6 +27,8 @@ angular.module('uiRouterSample')
                 $rootScope.loggedIn = true
                 console.log("Logged in!!!", $scope.loggedIn)
             }
+            var element = document.getElementById("loginDropdown")
+            angular.element(element).removeClass('open')
         }
         var credits = $scope.credentials
         loginFactory.postLogin(credits, handleSuccess)

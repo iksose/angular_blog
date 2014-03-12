@@ -61,7 +61,7 @@
             <li ui-sref-active="active"><a ui-sref="database">Database</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-controller="loginController">
-              <li class="dropdown" >
+              <li class="dropdown" id="loginDropdown">
                 <a class="dropdown-toggle">
                   <span ng-hide="loggedIn">Log In</span>
                   <span ng-show="loggedIn">{{user.username}}</span>
