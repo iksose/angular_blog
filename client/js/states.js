@@ -289,6 +289,17 @@ angular.module('uiRouterSample')
             templateUrl: 'views/blog.html',
             controller: 'blogController'
           })
+          .state('bloglist',{
+            url: '/bloglist',
+            templateUrl: 'views/bloglist.html',
+            controller: 'blogController'
+          })
+          .state('bloglist.post',{
+            url: '/:blogID',
+            templateUrl: 'views/bloglist.post.html',
+            controller: 'blogController'
+          })
+
 
 
       }]);

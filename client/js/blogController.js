@@ -24,7 +24,28 @@ angular.module('uiRouterSample')
         blogFactory.updatePost(data)
     }
 
-    
+    ///CONTROLLER FOR LIST VIEW
+    //
+    //
+
+    $scope.postsList = []
+
+    var handleThis2 = function(data){
+        console.log("Handling....", data)
+        $scope.postsList = data
+    }
+
+    blogFactory.getAllPosts(handleThis2)
+
+    $scope.funUpdate2 = function(data){
+        console.log("Well okay I guess...", data)
+        // var obj = {_id: data}
+        blogFactory.updatePost(data)
+    }
+
+    $scope.findArticle = function(data){
+        console.log("You want me to look up...", data)
+    }
 
 })
 
@@ -68,6 +89,17 @@ angular.module('uiRouterSample')
                 // errors.addErr("danger", data)
             })
 
+        },
+        getAllPosts: function(callback){
+            $http.get("/blogposts")
+            .success(function(data){
+                console.log("Success from factory ", data)
+                callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                // callback(data, status)
+            })
         }
     }
     })
