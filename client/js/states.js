@@ -284,6 +284,11 @@ angular.module('uiRouterSample')
             templateUrl: 'views/database.html',
             controller: 'dbController'
           })
+          .state('blog',{
+            url: '/blog',
+            templateUrl: 'views/blog.html',
+            controller: 'blogController'
+          })
 
 
       }]);

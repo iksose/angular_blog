@@ -5,3 +5,12 @@
 #loginDropdown a:hover{
 	cursor: pointer;
 };
+
+.ta-toolbar{
+	padding-bottom: 10px;
+}
+
+
+.cocks{
+	float: right !important;
+}

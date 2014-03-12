@@ -40,6 +40,8 @@
 
     <script src="js/alertController.js"></script>
 
+    <script src="js/blogController.js"></script>
+
     <!-- could easily use a custom property of the state here instead of 'name' -->
     <title ng-bind="$state.current.name + ' - ui-router'">ui-router</title>
   </head>
@@ -64,6 +66,7 @@
             <li ui-sref-active="active"><a ui-sref="about">About</a></li>
             <li ui-sref-active="active"><a ui-sref="contacts">Contacts</a></li>
             <li ui-sref-active="active"><a ui-sref="database">Database</a></li>
+            <li ui-sref-active="active"><a ui-sref="blog">Blog</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" ng-controller="loginController">
               <li class="dropdown" id="loginDropdown">

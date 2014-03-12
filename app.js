@@ -6,7 +6,8 @@ var express = require('express')
     , passport = require('passport')
     , basic_routes = require('./routes/basic')
     , user_routes = require('./routes/user')
-    , movie = movie = require('./config/movies');
+    , movie = require('./config/movies')
+    , blog = require('./config/blogposts.js');
     // , flash = require('connect-flash');
 
 app.set('views', __dirname + '/client/views');
@@ -59,6 +60,12 @@ app.get('/secure/admin', user_routes.admin);
 
 app.get('/secure/admin/movies', pass.ensureAdmin, movie.findAll);
 app.post('/secure/admin/movies', pass.ensureAdmin, movie.addMovie)
+
+
+
+app.get('/blogposts', blog.findAll)
+
+app.post('/blogposts', blog.updateMovie)
 
 app.listen(3000, function () {
     console.log('Express server listening on port 3000');

@@ -30,14 +30,6 @@ angular.module('uiRouterSample')
         movieFactory.saveMovie($scope.movieModel)
     }
 
-
-    //textAngular
-
-    $scope.note = {
-        id: 0,
-        content: '<b>Press Back and Forward to simulate loading a new note</b><div><b><br/></b></div><div><img src="http://puppydogweb.com/gallery/puppies/labradorretriever2.jpg"/><b><br/></b></div>'
-    }
-
     
 
 })
