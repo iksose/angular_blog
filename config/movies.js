@@ -41,7 +41,7 @@ exports.addMovie = function(req, res) {
 	  if (err){
 	  	console.error(err)
 	  	res.status(500);
-	  	res.send({"ErrorMsg": err})
+	  	res.send(err.message)
 	  	return
 	  }else{
 	 	console.dir(movie);

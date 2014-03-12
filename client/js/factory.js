@@ -19,6 +19,23 @@ angular.module('uiRouterSample')
     return factory;
   }])
 
+  .service('errors', function(){
+    var errArray = []
+    return {
+            getErrors:function () {
+                return errArray;
+            },
+            popLast: function(){
+              errArray.pop()
+            },
+            addErr: function(color, text){
+              errArray.pop()
+              errArray.push( {type: color, msg: text} )
+            }
+      }
+
+  })
+
   .factory('utils', function () {
 
     return {

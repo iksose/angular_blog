@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" type="text/css" href="css/loadingbar.css">
 
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+
     <!-- Include both angular.js and angular-ui-router.js-->
     <script src="lib/angular.js"></script>
     <script src="lib/animate.js"></script>
@@ -31,11 +33,13 @@
 
     <script src="js/directives.js"></script>
 
+    <script src="js/alertController.js"></script>
+
     <!-- could easily use a custom property of the state here instead of 'name' -->
     <title ng-bind="$state.current.name + ' - ui-router'">ui-router</title>
   </head>
   <body>
-
+<div class="container">
 
         <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -86,12 +90,17 @@
       </div>
     </div>
 
+    <div ng-controller="alertController" id="alerts" class="container" style="padding-top: 80px;">
+      <alert ng-repeat="alert in alerts()" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+      <!-- <button class='btn btn-default' ng-click="addAlert()">Add Alert</button> -->
+    </div>
+
 
 
 
     <!-- Here is the main ui-view (unnamed) and will be populate by its immediate children's templates
          unless otherwise explicitly named views are targeted. It's also employing ng-animate. -->
-    <div ui-view class="container slide" style="padding-top: 80px;">
+    <div ui-view class="container slide" >
 
 
 
@@ -107,5 +116,6 @@
       <!-- $state.$current is not a public api, we are using it to
            display the full url for learning purposes-->
     </pre>
+    </div>
   </body>
 </html>

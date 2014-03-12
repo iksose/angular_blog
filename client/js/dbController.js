@@ -1,20 +1,17 @@
 angular.module('uiRouterSample')
-.controller("dbController" ,function ($scope, $state, $http, loginFactory) {
-    console.log("Hello from dbController", $state)
-    
+.controller("dbController" ,function ($scope, $state, movieFactory) {
+    console.log("Hello from dbController")    
 
-    var saveMovie = function(obj){
-        return $http.post("secure/admin/movies", obj)
+    movieFactory.getMovies(handleSuccess)
+
+    function handleErrors(data, status){
+        console.log("Handler", data, status)
     }
 
-    var getMovies = function(){
-        return $http.get("secure/admin/movies")
+    function handleSuccess(data, status){
+        console.log("Success")
+        $scope.movieList = data
     }
-
-    getMovies().success(handleSuccess2)
-
-
-    //MOVIES on MONGOOSE :
 
     $scope.movieList = [];
 
@@ -30,33 +27,40 @@ angular.module('uiRouterSample')
     }
     $scope.AddMovie = function(){
         console.log("ADDING", $scope.movieModel )
-        saveMovie($scope.movieModel).
-            success(function(data, status, headers, config) {
-            // this callback will be called asynchronously
-            // when the response is available
-            console.log("SUCCESS", status, data.error)
-            }).
-            error(function(data, status, headers, config) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            console.log("ERROR", status, data.ErrorMsg)
-            });
+        movieFactory.saveMovie($scope.movieModel)
     }
-
-
-    $scope.login = function(){
-        console.log("Logging in...", $scope.credentials)
-        var credits = $scope.credentials
-        loginFactory.postLogin(credits)
-    }
-
-    function handleSuccess(data, status){
-        console.log("Success....", data, status)
-    }
-
-    $scope.credentials = {}
 
     
 
-});
+})
+
+.factory('movieFactory', function($http, errors){
+    console.log("Hello from movie Factory")
+    var movieList;
+    return {
+        saveMovie: function(movie, callback){
+            $http.post("secure/admin/movies", movie)
+            .success(function(data){
+                console.log("Success from factory ", data)
+                // callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                // callback(data)
+                errors.addErr("danger", data)
+            })
+        },
+        getMovies: function(callback){
+            $http.get("secure/admin/movies")
+            .success(function(data){
+                console.log("Success from factory ", data)
+                callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                callback(data, status)
+            })
+        }
+    }
+    })
 
