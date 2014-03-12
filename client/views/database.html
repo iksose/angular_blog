@@ -1,7 +1,7 @@
 <h4>Welcome to the Database</h4>
 
 <div class="row">
-	<div class="col-xs-6 col-sm-6">
+	<div class="col-xs-3 col-sm-3">
 		<h5><strong>Mongoose</strong></h5>
 		<div ng-repeat="friends in movieList track by $index">
 		{{friends.title}}
@@ -15,9 +15,18 @@
 	</div>
 
 
-	<div class="col-xs-6 col-sm-6">
+	<div class="col-xs-9 col-sm-9">
 	<span ng-show="loggedIn">
 		<h5>Admin Panel</h5>
+
+        <h2>TextAngular</h2>
+        <!-- <div text-angular ng-model="note.content"></div><br/> -->
+        <h2>TextArea</h2>
+        <textarea ng-model="note.content"></textarea><br/>
+
+         <div ta-bind ng-model="note.content"></div><br/>
+
+
 	</span>
 	</div>
 
