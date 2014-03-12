@@ -5,5 +5,5 @@
 <hr>
 
  <div ng-repeat="item in postsList">
-    <a ui-sref="bloglist.post({blogID: item._id})">{{ item.title }}</a>
+    <a ui-sref="post({title: item.title})">{{ item.title }}</a>
   </div>

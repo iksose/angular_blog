@@ -64,6 +64,7 @@ app.post('/secure/admin/movies', pass.ensureAdmin, movie.addMovie)
 
 
 app.get('/blogposts', blog.findAll)
+app.post('/posts', blog.findOne)
 
 app.post('/blogposts', blog.updateMovie)
 

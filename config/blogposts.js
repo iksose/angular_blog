@@ -34,6 +34,22 @@ exports.findAll = function(req, res){
 
 };
 
+exports.findOne = function(req, res){
+	console.log("Find one of : ", req.body)
+	BlogPost.findOne({title: req.body.title}, function(err,obj) {
+		if (err) return console.error(err);
+	  console.dir(obj);
+	  res.send(obj)
+	});
+	// Find all movies.
+	// BlogPost.find(function(err, posts) {
+	//   if (err) return console.error(err);
+	//   console.dir(posts);
+	//   res.send(posts)
+	// });
+
+};
+
 
 exports.updateMovie = function(req, res){
     // var BlogPost = new BlogPost(req.body)

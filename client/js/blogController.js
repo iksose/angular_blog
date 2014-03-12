@@ -49,6 +49,27 @@ angular.module('uiRouterSample')
 
 })
 
+
+.controller('blogController_individual', function ($scope, $state, $stateParams , blogFactory) {
+    console.log("Individual...?", $stateParams)
+    var stateParams = $stateParams
+    $scope.postDetail;
+
+    var getPostSuccess_callback = function(data){
+        $scope.postDetail = data;
+    }
+
+    blogFactory.returnOne(stateParams, getPostSuccess_callback)
+
+
+    $scope.funUpdate = function(data){
+        console.log("Well okay I guess...", data)
+        // var obj = {_id: data}
+        blogFactory.updatePost(data)
+    }
+
+})
+
 .factory('blogFactory', function($http, errors){
     console.log("Hello from blog Factory")
     var movieList;
@@ -99,6 +120,18 @@ angular.module('uiRouterSample')
             .error(function(data, status, headers, config){
                 console.log("Fail from factory ", data, status)
                 // callback(data, status)
+            })
+        },
+        returnOne: function(obj, callback){
+            console.log("Factory", obj)
+            $http.post('/posts', obj)
+            .success(function(data){
+                console.log("Success from factory ", data)
+                callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                callback(data, status)
             })
         }
     }

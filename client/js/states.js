@@ -294,10 +294,10 @@ angular.module('uiRouterSample')
             templateUrl: 'views/bloglist.html',
             controller: 'blogController'
           })
-          .state('bloglist.post',{
-            url: '/:blogID',
+          .state('post',{
+            url: '/post/:title',
             templateUrl: 'views/bloglist.post.html',
-            controller: 'blogController'
+            controller: 'blogController_individual'
           })
 
 
