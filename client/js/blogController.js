@@ -77,6 +77,11 @@ angular.module('uiRouterSample')
         errors.addErr("danger", "You're not authorized to do that")
         $state.go("home")
     }
+
+    $scope.blogpost = {};
+
+
+
 })
 
 .factory('blogFactory', function($http, errors){
