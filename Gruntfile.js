@@ -3,7 +3,8 @@ var db = require('./config/dbschema');
 module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-ngmin');  
+  grunt.loadNpmTasks('grunt-ngmin');
+  grunt.loadNpmTasks('grunt-contrib-uglify');  
 
   grunt.registerTask('dbseed', 'seed the database', function() {
     grunt.task.run('adduser:admin:admin@example.com:secret:true');
@@ -111,6 +112,18 @@ module.exports = function(grunt) {
                 expand: false,
                 src: '<%= distFolder %>/main.js',
                 dest: '<%= distFolder %>/main_ngmin.js'
+            }
+        },
+    uglify: {
+            options: {
+              compress: {
+                drop_console: true
+              }
+            },
+            compile: {
+                files: {
+                    '<%= distFolder %>/output.min.js': ['<%= distFolder %>/main_ngmin.js']
+                }
             }
         }
   }); // The end of grunt.initConfig
