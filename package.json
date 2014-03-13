@@ -1,6 +1,6 @@
 {
-  "name": "passport-local-examples-login",
-  "version": "0.0.0",
+  "name": "angular_blog",
+  "version": "0.0.1",
   "dependencies": {
     "express": "~3.1.0",
     "ejs": "~0.8.3",
