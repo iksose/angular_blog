@@ -304,6 +304,11 @@ angular.module('uiRouterSample')
             templateUrl: 'views/newpost.html',
             controller: 'blogController_newPost'
           })
+          .state('es6',{
+            url: '/es6',
+            templateUrl: 'views/es6.html',
+            controller: 'ecmascript6_controller'
+          })
 
 
 
