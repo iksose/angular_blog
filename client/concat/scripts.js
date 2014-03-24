@@ -265,6 +265,7 @@ angular.module('uiRouterSample').directive('ngEnter', function() {
   };
 });
 angular.module('uiRouterSample').controller("ecmascript6_controller", function($scope, errors) {
+  var $__2;
   console.log("Hello from es6");
   var Vehicle = function Vehicle(name, year) {
     this.name = name;
@@ -278,6 +279,93 @@ angular.module('uiRouterSample').controller("ecmascript6_controller", function($
   var numbers = [1, 4, 9];
   var roots = numbers.map(Math.sqrt);
   console.log(numbers, roots);
+  var evens = [2, 4, 6, 8, 10, 12, 14];
+  var odds = evens.map((function(v) {
+    return v + 1;
+  }));
+  var nums = evens.map((function(v, i) {
+    return v + i;
+  }));
+  console.log(odds);
+  console.log(evens);
+  var fives = [];
+  nums.forEach((function(v) {
+    if (v % 5 === 0)
+      fives.push(v);
+  }));
+  console.log("Nums ", nums);
+  console.log("Fives ", fives);
+  var bob = {
+    _name: "Bob",
+    _friends: [],
+    printFriends: function() {
+      var $__0 = this;
+      this._friends.forEach((function(f) {
+        return console.log($__0._name + " knows " + f);
+      }));
+    }
+  };
+  bob._friends.push("Kyle");
+  console.log(bob.printFriends());
+  function f(x) {
+    for (var y = [],
+        $__9 = 1; $__9 < arguments.length; $__9++)
+      $traceurRuntime.setProperty(y, $__9 - 1, arguments[$traceurRuntime.toProperty($__9)]);
+    return x * y.length;
+  }
+  console.log(f(3, "hello", true) == 6);
+  var x = "inner";
+  console.log("Ex wow ", x);
+  var fibonacci = ($__2 = {}, Object.defineProperty($__2, Symbol.iterator, {
+    value: function() {
+      var pre = 0,
+          cur = 1;
+      return {next: function() {
+          var $__10;
+          ($__10 = [cur, pre + cur], pre = $__10[0], cur = $__10[1], $__10);
+          return {
+            done: false,
+            value: cur
+          };
+        }};
+    },
+    configurable: true,
+    enumerable: true,
+    writable: true
+  }), $__2);
+  for (var $__3 = fibonacci[$traceurRuntime.toProperty(Symbol.iterator)](),
+      $__4; !($__4 = $__3.next()).done; ) {
+    var n = $__4.value;
+    {
+      if (n > 5000)
+        break;
+      console.log(n);
+    }
+  }
+  for (var $__5 = iterable[$traceurRuntime.toProperty(Symbol.iterator)](),
+      $__6; !($__6 = $__5.next()).done; ) {
+    try {
+      throw undefined;
+    } catch (x) {
+      x = $__6.value;
+      {
+        console.log(x);
+      }
+    }
+  }
+  var articleParagraphs = document.querySelectorAll("article > p");
+  console.log("Let article", articleParagraphs);
+  for (var $__7 = articleParagraphs[$traceurRuntime.toProperty(Symbol.iterator)](),
+      $__8; !($__8 = $__7.next()).done; ) {
+    try {
+      throw undefined;
+    } catch (paragraph) {
+      paragraph = $__8.value;
+      {
+        paragraph.classList.add("read");
+      }
+    }
+  }
 });
 angular.module('uiRouterSample').factory('contacts', ['$http', function($http, utils) {
   var path = 'contacts.json';
@@ -315,15 +403,15 @@ angular.module('uiRouterSample').factory('contacts', ['$http', function($http, u
   return {
     findById: function findById(a, id) {
       for (var i = 0; i < a.length; i++) {
-        if (a[i].id == id)
-          return a[i];
+        if (a[$traceurRuntime.toProperty(i)].id == id)
+          return a[$traceurRuntime.toProperty(i)];
       }
       return null;
     },
     newRandomKey: function newRandomKey(coll, key, currentKey) {
       var randKey;
       do {
-        randKey = coll[Math.floor(coll.length * Math.random())][key];
+        randKey = coll[$traceurRuntime.toProperty(Math.floor(coll.length * Math.random()))][$traceurRuntime.toProperty(key)];
       } while (randKey == currentKey);
       return randKey;
     }

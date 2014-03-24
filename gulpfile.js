@@ -28,7 +28,7 @@ gulp.task('vendor', function() {
 gulp.task('scripts', function() {
   gulp.src('client/js/*.js')
     .pipe(concat('scripts.js'))
-    .pipe(traceur({sourceMap: false}))
+    .pipe(traceur({sourceMap: false, experimental: true}))
     .pipe(gulp.dest('client/concat'))
     .pipe(filesize())
     .pipe(uglify())
