@@ -9,6 +9,7 @@ var path = require('path');
 var prefixer = require('gulp-autoprefixer');
 var changed = require('gulp-changed');
 var watch = require('gulp-watch');
+var traceur = require('gulp-traceur');
 
 
 gulp.task('vendor', function() {
@@ -26,6 +27,7 @@ gulp.task('vendor', function() {
 gulp.task('scripts', function() {
   gulp.src('client/js/*.js')
     .pipe(concat('scripts.js'))
+    .pipe(traceur({sourceMap: true}))
     .pipe(gulp.dest('client/concat'))
     .pipe(filesize())
     .pipe(uglify())

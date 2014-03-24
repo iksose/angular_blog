@@ -1,6 +1,12 @@
 angular.module('uiRouterSample')
 .controller("blogController" ,function ($scope, $state, blogFactory) {
-    console.log("Hello from blog Controller")    
+    console.log("Hello from blog Controller")
+
+    var map = new Map()
+map.set('John', 25)
+map.set('Alice', 400)
+
+console.log("Map, ", map)   
 
 
     //textAngular
@@ -150,4 +156,3 @@ angular.module('uiRouterSample')
         }
     }
     })
-
