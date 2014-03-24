@@ -54,7 +54,7 @@ gulp.task('watch', function() {
     var server = livereload();
     gulp.watch('client/js/*.js', ['scripts']);
     gulp.watch('client/lib/*.js', ['vendor'])
-    gulp.watch('client/less*.less', ['css']);
+    gulp.watch('client/less/*.less', ['css']);
     gulp.watch('client/concat/**').on('change', function(file) {
       server.changed(file.path);
   })

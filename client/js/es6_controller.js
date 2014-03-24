@@ -8,6 +8,6 @@ angular.module('uiRouterSample')
 
   console.log(m, kar)
 
-console.log("This is pretty sweet");
+  console.log("What else can we do")
 
 })

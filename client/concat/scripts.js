@@ -270,7 +270,7 @@ angular.module('uiRouterSample').controller("ecmascript6_controller", function($
   m.set("hello", 42);
   var kar = m.get("hello");
   console.log(m, kar);
-  console.log("This is pretty sweet");
+  console.log("What else can we do");
 });
 angular.module('uiRouterSample').factory('contacts', ['$http', function($http, utils) {
   var path = 'contacts.json';
