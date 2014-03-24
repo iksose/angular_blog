@@ -7,10 +7,9 @@ var filesize = require('gulp-filesize');
 var less = require('gulp-less');
 var path = require('path');
 var prefixer = require('gulp-autoprefixer');
+var changed = require('gulp-changed');
+var watch = require('gulp-watch');
 
-gulp.task('default', function() {
-  // place code for your default task here
-});
 
 gulp.task('vendor', function() {
   gulp.src('client/lib/*.js')
@@ -24,20 +23,34 @@ gulp.task('vendor', function() {
     .on('error', gutil.log)
 });
 
+gulp.task('scripts', function() {
+  gulp.src('client/js/*.js')
+    .pipe(concat('scripts.js'))
+    .pipe(gulp.dest('client/concat'))
+    .pipe(filesize())
+    .pipe(uglify())
+    .pipe(rename('scripts.min.js'))
+    .pipe(gulp.dest('client/concat'))
+    .pipe(filesize())
+    .on('error', gutil.log)
+});
+
 
 // Compiles LESS > CSS
 gulp.task('css', function(){
-    return gulp.src('styles.less')
+    return gulp.src('client/less/myapp.less')
         .pipe(less())
-        .pipe(gulp.dest('./source/css'));
+        .pipe(gulp.dest('client/concat/css'))
+        .on('error', gutil.log);
 });
 
-gulp.task('less', function () {
-  gulp
-    .src('./client/concat/less/myapp.less') // This was the line that needed fixing
-    .pipe(less({
-      paths: ['client/less/less']
-    }))
-    .pipe(prefixer('last 2 versions', 'ie 9'))
-    .pipe(gulp.dest('./public/css'));
+
+// Watch Files For Changes
+gulp.task('watch', function() {
+    gulp.watch('client/js/*.js', ['scripts']);
+    gulp.watch('client/lib/*.js', ['vendor'])
+    gulp.watch('client/less*.less', ['css']);
 });
+
+// Default Task
+gulp.task('default', ['watch']);

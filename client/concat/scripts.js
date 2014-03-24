@@ -1,3 +1,20 @@
+// Make sure to include the `ui.router` module as a dependency
+angular.module('uiRouterSample', ['ui.router', 'ngAnimate',
+  'ngResource', 'ui.bootstrap',
+  'chieffancypants.loadingBar', 'textAngular'])
+    .run(
+      [        '$rootScope', '$state', '$stateParams',
+      function ($rootScope,   $state,   $stateParams) {
+
+        // It's very handy to add references to $state and $stateParams to the $rootScope
+        // so that you can access them from any scope within your applications.For example,
+        // <li ui-sref-active="active }"> will set the <li> // to active whenever
+        // 'contacts.list' or one of its decendents is active.
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+      }]);
+alert("Am I gulping?")
+
 // Make sure to include the `ui.router` module as a dependency.
 angular.module('uiRouterSample')
   .config(
@@ -308,3 +325,420 @@ angular.module('uiRouterSample')
 
 
       }]);
+
+angular.module('uiRouterSample')
+.controller("alertController" ,function ($scope, errors) {
+  $scope.alerts = function(){
+    return errors.getErrors()
+  };
+
+  $scope.addAlert = function() {
+    $scope.alerts.push({msg: "Another alert!"});
+  };
+
+  // $scope.closeAlert = function(index) {
+  //   $scope.alerts.splice(index, 1);
+  // };
+
+  $scope.closeAlert = function(index) {
+    errors.popLast();
+  };
+
+})
+angular.module('uiRouterSample')
+.controller("blogController" ,function ($scope, $state, blogFactory) {
+    console.log("Hello from blog Controller")    
+
+
+    //textAngular
+
+    $scope.note = {
+        id: 0,
+        title: "Title goes here",
+        body: '<b>Press Back and Forward to simulate loading a new note</b><div><b><br/></b></div><div><img src="http://puppydogweb.com/gallery/puppies/labradorretriever2.jpg"/><b><br/></b></div>'
+    }
+
+    var handleThis = function(data){
+        console.log("Handling....", data[0])
+        $scope.note = data[0]
+    }
+
+    blogFactory.getMovies(handleThis)
+
+    $scope.funUpdate = function(data){
+        console.log("Well okay I guess...", data)
+        // var obj = {_id: data}
+        blogFactory.updatePost(data)
+    }
+
+    ///CONTROLLER FOR LIST VIEW
+    //
+    //
+
+    $scope.postsList = []
+
+    var handleThis2 = function(data){
+        console.log("Handling....", data)
+        $scope.postsList = data
+    }
+
+    blogFactory.getAllPosts(handleThis2)
+
+    $scope.funUpdate2 = function(data){
+        console.log("Well okay I guess...", data)
+        // var obj = {_id: data}
+        blogFactory.updatePost(data)
+    }
+
+    $scope.findArticle = function(data){
+        console.log("You want me to look up...", data)
+    }
+
+})
+
+
+.controller('blogController_individual', function ($scope, $state, $stateParams , blogFactory) {
+    console.log("Individual...?", $stateParams)
+    var stateParams = $stateParams
+    $scope.postDetail;
+
+    var getPostSuccess_callback = function(data){
+        $scope.postDetail = data;
+    }
+
+    blogFactory.returnOne(stateParams, getPostSuccess_callback)
+
+
+    $scope.funUpdate = function(data){
+        console.log("Well okay I guess...", data)
+        // var obj = {_id: data}
+        blogFactory.updatePost(data)
+    }
+
+})
+
+.controller('blogController_newPost', function ($scope, $state, $rootScope, blogFactory, errors) {
+    var loggedIn = $rootScope.loggedIn;
+    console.log("Time for a new post! Are you authorize!?", loggedIn)
+    if(!loggedIn){
+        errors.addErr("danger", "You're not authorized to do that")
+        $state.go("home")
+    }
+
+    $scope.blogpost = {};
+
+
+
+})
+
+.factory('blogFactory', function($http, errors){
+    console.log("Hello from blog Factory")
+    var movieList;
+    return {
+        saveMovie: function(movie, callback){
+            $http.post("secure/admin/movies", movie)
+            .success(function(data){
+                console.log("Success from factory ", data)
+                // callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                // callback(data)
+                errors.addErr("danger", data)
+            })
+        },
+        getMovies: function(callback){
+            $http.get("/blogposts")
+            .success(function(data){
+                console.log("Success from factory ", data)
+                callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                callback(data, status)
+            })
+        },
+        updatePost: function(blog){
+            console.log("Updating this : ", blog)
+            $http.post("/blogposts", blog)
+            .success(function(data){
+                console.log("Success from factory ", data)
+                // callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                // callback(data)
+                // errors.addErr("danger", data)
+            })
+
+        },
+        getAllPosts: function(callback){
+            $http.get("/blogposts")
+            .success(function(data){
+                console.log("Success from factory ", data)
+                callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                // callback(data, status)
+            })
+        },
+        returnOne: function(obj, callback){
+            console.log("Factory", obj)
+            $http.post('/posts', obj)
+            .success(function(data){
+                console.log("Success from factory ", data)
+                callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                callback(data, status)
+            })
+        }
+    }
+    })
+
+
+angular.module('uiRouterSample')
+.controller("dbController" ,function ($scope, $state, movieFactory) {
+    console.log("Hello from dbController")    
+
+    movieFactory.getMovies(handleSuccess)
+
+    function handleErrors(data, status){
+        console.log("Handler", data, status)
+    }
+
+    function handleSuccess(data, status){
+        console.log("Success")
+        $scope.movieList = data
+    }
+
+    $scope.movieList = [];
+
+
+    function handleSuccess2(data, status){
+        console.log(data, status)
+        $scope.movieList = data;
+    }
+
+    $scope.movieModel = {
+        title: "",
+        rating: "XXX"
+    }
+    $scope.AddMovie = function(){
+        console.log("ADDING", $scope.movieModel )
+        movieFactory.saveMovie($scope.movieModel)
+    }
+
+    
+
+})
+
+.factory('movieFactory', function($http, errors){
+    console.log("Hello from movie Factory")
+    var movieList;
+    return {
+        saveMovie: function(movie, callback){
+            $http.post("secure/admin/movies", movie)
+            .success(function(data){
+                console.log("Success from factory ", data)
+                // callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                // callback(data)
+                errors.addErr("danger", data)
+            })
+        },
+        getMovies: function(callback){
+            $http.get("secure/admin/movies")
+            .success(function(data){
+                console.log("Success from factory ", data)
+                callback(data)
+            })
+            .error(function(data, status, headers, config){
+                console.log("Fail from factory ", data, status)
+                callback(data, status)
+            })
+        }
+    }
+    })
+
+
+ angular.module('uiRouterSample')
+.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+});
+angular.module('uiRouterSample')
+
+    // A RESTful factory for retreiving contacts from 'contacts.json'
+  .factory('contacts', ['$http', function ($http, utils) {
+    var path = 'contacts.json';
+    var contacts = $http.get(path).then(function (resp) {
+      return resp.data.contacts;
+    });
+
+    var factory = {};
+    factory.all = function () {
+      return contacts;
+    };
+    factory.get = function (id) {
+      return contacts.then(function(){
+        return utils.findById(contacts, id);
+      })
+    };
+    return factory;
+  }])
+
+  .service('errors', function(){
+    var errArray = []
+    return {
+            getErrors:function () {
+                return errArray;
+            },
+            popLast: function(){
+              errArray.pop()
+            },
+            addErr: function(color, text){
+              errArray.pop()
+              errArray.push( {type: color, msg: text} )
+            }
+      }
+
+  })
+
+  .factory('utils', function () {
+
+    return {
+
+      // Util for finding an object by its 'id' property among an array
+      findById: function findById(a, id) {
+        for (var i = 0; i < a.length; i++) {
+          if (a[i].id == id) return a[i];
+        }
+        return null;
+      },
+
+      // Util for returning a randomKey from a collection that also isn't the current key
+      newRandomKey: function newRandomKey(coll, key, currentKey){
+        var randKey;
+        do {
+          randKey = coll[Math.floor(coll.length * Math.random())][key];
+        } while (randKey == currentKey);
+        return randKey;
+      }
+
+    };
+
+  });
+angular.module('uiRouterSample')
+.controller("loginController" ,function ($scope, $rootScope, $state, $http, loginFactory) {
+    console.log("Hello from login controller")
+    $scope.user;
+    $rootScope.loggedIn = false;
+    //Sets the scope if the user refreshes
+    $http.get('/api/user/').success(function(data) {
+        $scope.user = data;
+        console.log("Success grabbing user on refresh...", data)
+        window.donuts = $scope.user
+        window.holes = $scope.loggedIn;
+        if(data !== ""){
+            $rootScope.loggedIn = true;
+            
+            console.log("Logged in!!!!", $scope.loggedIn)
+        }
+    });
+    
+    $scope.credentials = {}
+
+    $scope.login = function(){
+        console.log("Logging in...", $scope.credentials)
+        var handleSuccess = function(data){
+            console.log("Callback....", data)
+            $scope.user = data;
+            if(data !== ""){
+                $rootScope.loggedIn = true
+                console.log("Logged in!!!", $scope.loggedIn)
+            }
+            var element = document.getElementById("loginDropdown")
+            angular.element(element).removeClass('open')
+        }
+        var credits = $scope.credentials
+        loginFactory.postLogin(credits, handleSuccess)
+    }
+
+    // function handleSuccess(data, status){
+    //     console.log("Success....", data, status)
+    // }
+
+
+    $scope.logoutUser = function(){
+        console.log("So you want to log out...?")
+        var handleSuccess = function(data){
+            console.log("Success on logout")
+             $rootScope.loggedIn = false;
+        }
+        loginFactory.submitLogout(handleSuccess)
+    }
+
+    $scope.failedLogin = function(){
+        return loginFactory.returnLoginFailure();
+    }
+    
+
+});
+
+angular.module('uiRouterSample')
+    // A RESTful factory for retreiving contacts from 'contacts.json'
+
+.factory('loginFactory', function($http){
+    console.log("Hello from login Factory")
+    var currentUser;
+    var errorMsg;
+    return {
+        postLogin: function(loginInfo, callback) {
+            console.log("POST DUDE", loginInfo)
+            $http({
+                method: 'POST',
+                url: '/dmz/login',
+                // data: params,
+                params: loginInfo,
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+            })
+            .success(function(data, status){
+                console.log("SUCCESS!!!", data, status)
+                currentUser = data.user
+                callback(data.user)
+                errorMsg = ""
+            })
+            .error(function(data, status){
+                console.log("Failure...", data, status)
+                errorMsg = "Please try again"
+            })
+        },
+        submitLogout: function(callback){
+            $http.get('/dmz/logout')
+            .success(function(data){
+                console.log("Success from factory ", data)
+                callback(data)
+            })
+        },
+        getCurrUser: function(){
+            return currentUser;
+        },
+        returnLoginFailure: function(){
+            return errorMsg;
+        }
+    }
+    })
