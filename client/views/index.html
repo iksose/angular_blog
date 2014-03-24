@@ -16,12 +16,13 @@
     <link rel="stylesheet" type="text/css" href="css/app.css">
 
     <!-- Include both angular.js and angular-ui-router.js-->
-    <script src="lib/angular.js"></script>
-    <script src="lib/animate.js"></script>
-    <script src="lib/ui-router.js"></script>
-    <script src="lib/resource.js"></script>
-    <script src="lib/bootstrap.js"></script>
-    <script src="lib/loadingbar.js"></script>
+<!--     // <script src="lib/angular.js"></script>
+    // <script src="lib/animate.js"></script>
+    // <script src="lib/ui-router.js"></script>
+    // <script src="lib/resource.js"></script>
+    // <script src="lib/bootstrap.js"></script>
+    // <script src="lib/loadingbar.js"></script> -->
+    <script src="concat/vendor.js"></script>
 
     <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.0/textAngular-sanitize.min.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.0/textAngular.min.js'></script>
@@ -98,7 +99,7 @@
                   </form>
                   <span ng-hide="loggedIn">{{failedLogin()}}</span>
                   </span>
-                  <span ng-show="loggedIn">           
+                  <span ng-show="loggedIn">
                     <button style="margin-top: 10px;" button type="button" class="btn btn-success" ng-click="logoutUser()">Logout</button>
                   </span>
                   </ul>
